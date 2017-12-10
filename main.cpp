@@ -122,7 +122,7 @@ bool myXBee::read()
                 cout << "XBee disassociated\n";
                 break;
             default:
-                cout << "XBee modem status " << modemStat << endl;
+                cout << "XBee modem status 0x" << hex << static_cast<unsigned int>(modemStat) << endl;
                 break;
             }
             break;

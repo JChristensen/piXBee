@@ -1,10 +1,10 @@
-# XBee Interface for Raspberry Pi #
+# XBee Interface for Raspberry Pi
 https://github.com/JChristensen/piXBee  
 ReadMe file  
 Jack Christensen Dec 2017
 
 ## Be forewarned
-This is alpha quality, proof-of-concept demo code. It works for me but needs some review, tuning, general cleanup, etc. etc. Use at your own risk!
+This is alpha-quality, proof-of-concept, demo code. It works for me but needs some review, tuning, general cleanup, etc. etc. Use at your own risk!
 
 ## Background
 Over the last few years, I have deployed several XBee wireless sensor networks based on Arduino (ATmega328P and ATmega1284P). While the XBee modules form mesh networks, logically the data flow is that of a star network. The node with the XBee coordinator is the data concentrator that all sensor nodes send their data to. The coordinator node has an Ethernet interface and forwards the data to an online service like GroveStreams, ThingSpeak, etc.
@@ -21,8 +21,26 @@ After studying the XBee-Arduino library a bit, it seemed that the library could 
 
 The `examples` folder contains an Arduino sketch that will communicate with a Raspberry Pi that has an XBee connected to a USB port via an FTDI interface. Read the comments in `piXBee.ino` for circuit connection information. The `main.cpp` file that runs on Linux is basically just a copy of this sketch, modified to use `cout` in place of `Serial` writes, and removing Arduino GPIO calls.
 
-#### To deploy the example code: ####
+#### To deploy the example code:
 1. Create a directory on the Raspberry Pi and from this repo, copy `*.cpp, *.h` and `build.sh` to it.
-2. From the [XBee library](https://github.com/andrewrapp/xbee-arduino), copy the `XBee.cpp` and `XBee.h` files to the directory created above. Alternately, if the XBee library already exists elsewhere, set the `xbeeLib` variable in the `build.sh` script accordingly.
+2. From the [XBee library](https://github.com/andrewrapp/xbee-arduino), copy the `XBee.cpp` and `XBee.h` files to the directory created above. Alternately, if the XBee library already exists elsewhere, edit `build.sh` and set the `xbeeLib` variable accordingly.
 3. Run the `build.sh` script to create the executable file `piXBee`.
 4. Load the example sketch on an Arduino. In a terminal on the Pi, run `piXBee`. Observe the communication there and in the Arduino serial monitor.
+
+## Sample output
+Output from the Arduino. The gobbledegook is expected. This is the Transmit Request frame sent from the Arduino to the XBee. It is visible since we use the serial interface for diagnostic messages as well as to communicate with the XBee.
+
+![Arduino log](https://raw.githubusercontent.com/JChristensen/piXBee/master/arduino-log.png)
+  
+Output from the Raspberry Pi.
+
+![Raspberry Pi log](https://raw.githubusercontent.com/JChristensen/piXBee/master/pi-log.png)
+
+## Photos
+Arduino (transmitter)
+
+![Arduino transmitter](https://raw.githubusercontent.com/JChristensen/piXBee/master/arduino.jpg)
+
+Headless Raspberry Pi Zero with a [Zero4U USB hub](https://www.adafruit.com/product/3298) and an Edimax wifi dongle, running Raspbian Stretch Lite. I may have to design an XBee USB dongle to eliminate the cable.
+
+![Raspberry Pi receiver](https://raw.githubusercontent.com/JChristensen/piXBee/master/rpi-zero.jpg)
