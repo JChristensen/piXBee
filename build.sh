@@ -2,7 +2,7 @@
 # Simple script to build piXBee project.
 
 # Directory where the XBee library is stored
-xbeeLib="../../Dropbox/sketchbook/libraries/XBee"
+xbeeLib="."
 
 g++ -Wall -std=c++11 -fexceptions -DARDUINO=100 -O2 -std=c++11 -I$xbeeLib -I. -c $xbeeLib/XBee.cpp -o XBee.o
 g++ -Wall -std=c++11 -fexceptions -DARDUINO=100 -O2 -std=c++11 -I$xbeeLib -I. -c Arduino.cpp -o Arduino.o
